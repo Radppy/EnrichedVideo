@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="fr.enssat.bacletpothier.enrichedvideo.MainActivity">
 
+    <!-- view au centre du layout -->
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="wrap_content"
