@@ -1,19 +1,22 @@
 package fr.enssat.bacletpothier.enrichedvideo;
 
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Vidéo
     private VideoView videoView;
     private int position = 0;
     private MediaController mediaController;
+    // Page web
+    private WebView webView;
 
 
     @Override
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         videoView = findViewById(R.id.videoView);
+        webView = findViewById(R.id.webView);
 
         // Set the media controller buttons
         if (mediaController == null) {
@@ -74,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Simplest usage: note that an exception will NOT be thrown
+        // if there is an error loading this page (see below).
+        webView.loadUrl("https://developer.android.com/reference/android/webkit/WebView.html");
+
     }
 
 
@@ -98,5 +106,8 @@ public class MainActivity extends AppCompatActivity {
         position = savedInstanceState.getInt("CurrentPosition");
         videoView.seekTo(position);
     }
+
+
+
 
 }
