@@ -1,3 +1,8 @@
+/**
+ * application EnrichedVideo
+ * Module Activity
+ * authors F. Pothier, A.C. Baclet
+ */
 package fr.enssat.bacletpothier.enrichedvideo;
 
 import android.media.MediaPlayer;
@@ -16,11 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,13 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private LinkedHashMap<Integer,String> metas;
     private Handler wHandler;
     private static final int UPDATE_FREQ = 500;
-    //Boutons
-    private Button bIntro;
-    private Button bTitle;
-    private Button bButterflies;
-    private Button bAssault;
-    private Button bPayback;
-    private Button bCredits;
+
+
     private View.OnClickListener bListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -98,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
      * @param  videoUrl  l'URL de la vidéo à lire
      */
     private void initVideo(String videoUrl){
+        Log.d("initVideo","init video start");
         // MediaController
         if (mediaController == null) {
             mediaController = new MediaController(MainActivity.this);
@@ -143,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
      * @param  pageURL  l'URL de la page initilement affichée
      */
     private void initWebView(String pageURL){
+        Log.d("initWebView","init web view start");
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -155,7 +153,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMetatags(){
-        parseMetas();
+        Log.d("initMetatags","init start");
+        metas = JsonParser.parseDatas(
+                getResources().openRawResource(R.raw.webpages),"WebPages","pos", "url"
+                );
+
         wHandler.post(checkMetas);
     }
 
@@ -172,40 +174,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void parseMetas(){
-        InputStream inputStream = getResources().openRawResource(R.raw.webpages);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        int ctr;
-        try {
-            ctr = inputStream.read();
-            while (ctr != -1) {
-                byteArrayOutputStream.write(ctr);
-                ctr = inputStream.read();
-            }
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            JSONObject jObject = new JSONObject(byteArrayOutputStream.toString());
-            JSONArray jArray = jObject.getJSONArray("WebPages");
-            int pos = 0;
-            String url = "";
-            metas = new LinkedHashMap<>();
-            for (int i = 0; i < jArray.length(); i++) {
-                pos = jArray.getJSONObject(i).getInt("pos");
-                url = jArray.getJSONObject(i).getString("url");
-                metas.put(pos,url);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private String getClosestUrl(int position){
         String result = null;
         for(Map.Entry<Integer,String> meta : metas.entrySet()){
+            Log.d("getClosestUrl","meta-"+meta.getKey()+"-"+meta.getValue());
             if(meta.getKey()<position){
                 result = meta.getValue();
             }
@@ -217,39 +191,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtons(){
+        Log.d("initButtons","init buttons start");
         InputStream inputStream = getResources().openRawResource(R.raw.chap);
-         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        LinkedHashMap<Integer,String> datas = JsonParser.parseDatas(inputStream,"Chapters","pos","title");
 
-        int ctr;
-        try {
-            ctr = inputStream.read();
-            while (ctr != -1) {
-                byteArrayOutputStream.write(ctr);
-                ctr = inputStream.read();
-            }
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            JSONObject jObject = new JSONObject(byteArrayOutputStream.toString());
-            JSONArray jArray = jObject.getJSONArray("Chapters");
-            int pos = 0;
-            String title = "";
-            LinearLayout chapters = (LinearLayout)findViewById(R.id.bLayout);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            for (int i = 0; i < jArray.length(); i++) {
-                pos = jArray.getJSONObject(i).getInt("pos");
-                title = jArray.getJSONObject(i).getString("title");
-                Button button = new Button(this);
-                button.setTag(pos);
-                button.setText(title);
-                button.setLayoutParams(layoutParams);
-                button.setOnClickListener(bListener);
-                chapters.addView(button);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        int pos = 0;
+        String title = "";
+        LinearLayout chapters = (LinearLayout)findViewById(R.id.bLayout);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        for(Map.Entry<Integer,String> data : datas.entrySet()){
+            Log.d("initButtons","data-"+data.getKey()+"-"+data.getValue());
+            pos=data.getKey();
+            title=data.getValue();
+            Button button = new Button(this);
+            button.setTag(pos);
+            button.setText(title);
+            button.setLayoutParams(layoutParams);
+            button.setOnClickListener(bListener);
+            chapters.addView(button);
         }
     }
 
