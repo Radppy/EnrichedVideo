@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EnrichedVideo</string>
+    <string name="sIntro">INTRO</string>
+    <string name="sTitle">TITLE</string>
+    <string name="sButterflies">BUTTERFLIES</string>
+    <string name="sAssault">ASSAULT</string>
+    <string name="sPayback">PAYBACK</string>
+    <string name="sCredits">CREDITS</string>
 </resources>

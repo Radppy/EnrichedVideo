@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.77" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -47,17 +47,61 @@
         app:layout_constraintStart_toEndOf="@+id/videoView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <LinearLayout
+        android:id="@+id/bLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:columnCount="6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
+
+        <Button
+            android:id="@+id/bIntro"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sIntro" />
+
+        <Button
+            android:id="@+id/bTitle"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sTitle" />
+
+        <Button
+            android:id="@+id/bButterflies"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sButterflies" />
+
+        <Button
+            android:id="@+id/bAssault"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sAssault" />
+
+        <Button
+            android:id="@+id/bPayback"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sPayback" />
+
+        <Button
+            android:id="@+id/bCredits"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:text="@string/sCredits" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
