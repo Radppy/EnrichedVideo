@@ -62,48 +62,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4">
-
-        <Button
-            android:id="@+id/bIntro"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sIntro" />
-
-        <Button
-            android:id="@+id/bTitle"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sTitle" />
-
-        <Button
-            android:id="@+id/bButterflies"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sButterflies" />
-
-        <Button
-            android:id="@+id/bAssault"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sAssault" />
-
-        <Button
-            android:id="@+id/bPayback"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sPayback" />
-
-        <Button
-            android:id="@+id/bCredits"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent"
-            android:text="@string/sCredits" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
