@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.MediaController;
-import android.widget.Spinner;
 import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,10 +16,17 @@ public class MainActivity extends AppCompatActivity {
     private VideoView videoView;
     private int position = 0;
     private MediaController mediaController;
+    private String videoUrl="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
     // Page web
     private WebView webView;
-    //Spinner
-    private Spinner spinner;
+    private String pageURL = "https://developer.android.com/reference/android/webkit/WebView.html";
+    //Boutons
+    private Button bIntro;
+    private Button bTitle;
+    private Button bButterflies;
+    private Button bAssault;
+    private Button bPayback;
+    private Button bCredits;
 
 
     @Override
@@ -28,9 +35,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         videoView = findViewById(R.id.videoView);
         webView = findViewById(R.id.webView);
-        initVideo();
-        initWebView();
-
+        bIntro = findViewById(R.id.bIntro);
+        bTitle = findViewById(R.id.bTitle);
+        bButterflies = findViewById(R.id.bButterflies);
+        bAssault = findViewById(R.id.bAssault);
+        bPayback = findViewById(R.id.bPayback);
+        bCredits = findViewById(R.id.bCredits);
+        initVideo(this.videoUrl);
+        initWebView(this.pageURL);
+        initButtons();
     }
 
 
@@ -38,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        // Staockage de la position courante
+        // Stockage de la position courante
         savedInstanceState.putInt("CurrentPosition", videoView.getCurrentPosition());
         videoView.pause();
     }
@@ -53,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
         videoView.seekTo(position);
     }
 
-
-    private void initVideo(){
+    /**
+     * Initialise la VideoView et le MediaControler.
+     * Prépare la vidéo située à l'URL donnée.
+     *
+     * @param  videoUrl  l'URL de la vidéo à lire
+     */
+    private void initVideo(String videoUrl){
         // MediaController
         if (mediaController == null) {
             mediaController = new MediaController(MainActivity.this);
@@ -63,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         }
         // Ouverture de la vidéo
         try {
-            String videoUrl="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
             Uri video = Uri.parse(videoUrl);
             videoView.setVideoURI(video);
         } catch (Exception e) {
@@ -91,11 +108,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initWebView(){
-        //WebView
-        webView.loadUrl("https://developer.android.com/reference/android/webkit/WebView.html");
+    /**
+     * Initialise la WebView sur laquelle on affiche les pages web
+     * en lien avec la partie de la vidéo en cours de lecture.
+     *
+     * @param  pageURL  l'URL de la page initilement affichée
+     */
+    private void initWebView(String pageURL){
+        webView.loadUrl(pageURL);
     }
 
+    private void initButtons(){
+
+    }
 
 
 }
